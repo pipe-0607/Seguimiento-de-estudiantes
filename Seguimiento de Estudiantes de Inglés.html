@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:8765/ -->
+<html lang="es" suppresshydrationwarning="true" data-qb-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#28735a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="English Studio">
+    <title>Seguimiento de Estudiantes de Inglés</title>
+    <link rel="manifest" href="http://localhost:8765/manifest.webmanifest">
+    <link rel="icon" href="http://localhost:8765/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="http://localhost:8765/icon.svg">
+    <link rel="stylesheet" href="./Seguimiento de Estudiantes de Inglés_files/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Resumen">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">EN</div>
+          <div>
+            <p class="eyebrow">English Studio</p>
+            <h1>Seguimiento</h1>
+          </div>
+        </div>
+
+        <section class="quick-stats" aria-label="Indicadores">
+          <article>
+            <span id="totalStudents">4</span>
+            <p>Estudiantes</p>
+          </article>
+          <article>
+            <span id="averageProgress">37%</span>
+            <p>Progreso medio</p>
+          </article>
+          <article>
+            <span id="nextClass">17 jun 2026</span>
+            <p>Próxima clase</p>
+          </article>
+        </section>
+
+        <nav class="side-nav" aria-label="Secciones">
+          <button class="nav-button active" data-view="studentsView" type="button">
+            <span aria-hidden="true">01</span>
+            Estudiantes
+          </button>
+          <button class="nav-button" data-view="lessonView" type="button">
+            <span aria-hidden="true">02</span>
+            Clase rápida
+          </button>
+          <button class="nav-button" data-view="reportsView" type="button">
+            <span aria-hidden="true">03</span>
+            Reporte
+          </button>
+        </nav>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Panel privado</p>
+            <h2>Control de aprendizaje</h2>
+          </div>
+          <div class="topbar-actions">
+            <label class="search-box">
+              <span aria-hidden="true">⌕</span>
+              <input id="searchInput" type="search" placeholder="Buscar estudiante">
+            </label>
+            <button class="ghost-button" id="installButton" type="button" hidden="">Instalar</button>
+            <button class="primary-button" id="newStudentButton" type="button">Nuevo</button>
+          </div>
+        </header>
+
+        <section class="view active" id="studentsView">
+          <div class="content-grid">
+            <form class="panel form-panel" id="studentForm">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Ficha</p>
+                  <h3 id="formTitle">Nuevo estudiante</h3>
+                </div>
+                <button class="ghost-button" id="clearFormButton" type="button">Limpiar</button>
+              </div>
+
+              <input id="studentId" type="hidden">
+
+              <label>
+                Nombre
+                <input id="nameInput" required="" type="text" placeholder="Ej. Sofia Ramirez">
+              </label>
+
+              <div class="two-columns">
+                <label>
+                  Nivel
+                  <select id="levelInput">
+                    <option>A1</option>
+                    <option>A2</option>
+                    <option>B1</option>
+                    <option>B2</option>
+                    <option>C1</option>
+                    <option>C2</option>
+                  </select>
+                </label>
+                <label>
+                  Estado
+                  <select id="statusInput">
+                    <option>Activo</option>
+                    <option>En pausa</option>
+                    <option>Completado</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="two-columns">
+                <label>
+                  Próxima clase
+                  <input id="nextClassInput" type="date">
+                </label>
+                <label>
+                  Progreso
+                  <input id="progressInput" max="100" min="0" type="number" value="0">
+                </label>
+              </div>
+
+              <div class="schedule-editor">
+                <div class="schedule-title">
+                  <div>
+                    <p class="eyebrow">Horario semanal</p>
+                    <strong>Días de clase</strong>
+                  </div>
+                  <button class="ghost-button compact-button" id="addScheduleButton" type="button">Añadir</button>
+                </div>
+                <div class="schedule-rows" id="scheduleRows"></div>
+              </div>
+
+              <label>
+                Objetivo principal
+                <input id="goalInput" type="text" placeholder="Conversacion, examen, trabajo...">
+              </label>
+
+              <label>
+                Notas
+                <textarea id="notesInput" rows="4" placeholder="Fortalezas, dificultades, tareas pendientes"></textarea>
+              </label>
+
+              <button class="primary-button full" type="submit">Guardar estudiante</button>
+            </form>
+
+            <section class="panel student-list-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Lista</p>
+                  <h3>Estudiantes</h3>
+                </div>
+                <select id="filterInput" aria-label="Filtrar por estado">
+                  <option value="Todos">Todos</option>
+                  <option value="Activo">Activos</option>
+                  <option value="En pausa">En pausa</option>
+                  <option value="Completado">Completados</option>
+                </select>
+              </div>
+              <div class="student-list" id="studentList">
+        <article class="student-card">
+          <div class="student-card-header">
+            <div>
+              <p class="student-name">Noelia (Novia de David)</p>
+              <span class="badge">B2 · Activo</span>
+            </div>
+            <strong>40%</strong>
+          </div>
+          <div class="student-meta">
+            <span>Coversación para trabajo. Mejora general del inglés</span>
+            <span>17 jun 2026</span>
+          </div>
+          
+    <div class="schedule-list">
+      
+            <div class="schedule-item">
+              <span class="schedule-dot" aria-hidden="true"></span>
+              <span>Miércoles: 5:30 pm - 7:30 pm</span>
+            </div>
+          
+    </div>
+  
+          <div class="progress-track" aria-label="Progreso">
+            <div class="progress-fill" style="width: 40%"></div>
+          </div>
+          <p class="student-notes">Le cuesta pronunciar /d/. Muy abierta a las conversaciones y actividades de todo tipo. Considerable un B2 en toda regla. Puede ayudarle a David a repasar en casa.</p>
+          <div class="student-actions">
+            <button class="ghost-button" type="button" data-action="edit" data-id="c66cbdab-fa2b-48e8-8abe-26b31abe5724">Editar</button>
+            <button class="danger-button" type="button" data-action="delete" data-id="c66cbdab-fa2b-48e8-8abe-26b31abe5724">Eliminar</button>
+          </div>
+        </article>
+      
+        <article class="student-card">
+          <div class="student-card-header">
+            <div>
+              <p class="student-name">Natalia Arroyo</p>
+              <span class="badge">B2 · Activo</span>
+            </div>
+            <strong>60%</strong>
+          </div>
+          <div class="student-meta">
+            <span>Conversación y mejora del inglés en general.</span>
+            <span>18 jun 2026</span>
+          </div>
+          
+    <div class="schedule-list">
+      
+            <div class="schedule-item">
+              <span class="schedule-dot" aria-hidden="true"></span>
+              <span>Miércoles: 7:30 pm - 8:30 pm</span>
+            </div>
+          
+    </div>
+  
+          <div class="progress-track" aria-label="Progreso">
+            <div class="progress-fill" style="width: 60%"></div>
+          </div>
+          <p class="student-notes">Perfectamente saca un C1. Ahora vamos a trabajar en mejorar el inglés para sacar el C1 en el TOEIC</p>
+          <div class="student-actions">
+            <button class="ghost-button" type="button" data-action="edit" data-id="7e53686e-71b9-482c-91b1-891d449075b9">Editar</button>
+            <button class="danger-button" type="button" data-action="delete" data-id="7e53686e-71b9-482c-91b1-891d449075b9">Eliminar</button>
+          </div>
+        </article>
+      
+        <article class="student-card">
+          <div class="student-card-header">
+            <div>
+              <p class="student-name">Samuel SAGRADO</p>
+              <span class="badge">A1 · Activo</span>
+            </div>
+            <strong>15%</strong>
+          </div>
+          <div class="student-meta">
+            <span>Mejora inglés de forma general para el colegio</span>
+            <span>18 jun 2026</span>
+          </div>
+          
+    <div class="schedule-list">
+      
+            <div class="schedule-item">
+              <span class="schedule-dot" aria-hidden="true"></span>
+              <span>Jueves: 3:00 pm - 4:30 pm</span>
+            </div>
+          
+    </div>
+  
+          <div class="progress-track" aria-label="Progreso">
+            <div class="progress-fill" style="width: 15%"></div>
+          </div>
+          <p class="student-notes">Le cuesta mucho la comprensión de lectura, le cuesta un poco menos la producción oral y el listening comprenhension. Se distrae bastante. Le cuesta leer instrucciones.</p>
+          <div class="student-actions">
+            <button class="ghost-button" type="button" data-action="edit" data-id="8863f8da-d279-4bd5-89d1-5c8f58524636">Editar</button>
+            <button class="danger-button" type="button" data-action="delete" data-id="8863f8da-d279-4bd5-89d1-5c8f58524636">Eliminar</button>
+          </div>
+        </article>
+      
+        <article class="student-card">
+          <div class="student-card-header">
+            <div>
+              <p class="student-name">David Elizondo</p>
+              <span class="badge">B1 · Activo</span>
+            </div>
+            <strong>32%</strong>
+          </div>
+          <div class="student-meta">
+            <span>Mejora inglés de forma general, y para el trabajo.</span>
+            <span>18 jun 2026</span>
+          </div>
+          
+    <div class="schedule-list">
+      
+            <div class="schedule-item">
+              <span class="schedule-dot" aria-hidden="true"></span>
+              <span>Jueves: 5:30 pm - 7:30 pm</span>
+            </div>
+          
+    </div>
+  
+          <div class="progress-track" aria-label="Progreso">
+            <div class="progress-fill" style="width: 32%"></div>
+          </div>
+          <p class="student-notes">Buena pronunciación. Hay que mejorar aspectos más específicos. 
+Le cuesta un poco la gramática, también paniquea un poco al pronunciar nuevas palabras.</p>
+          <div class="student-actions">
+            <button class="ghost-button" type="button" data-action="edit" data-id="b8e830a8-eb0b-40a7-b595-9615282fe184">Editar</button>
+            <button class="danger-button" type="button" data-action="delete" data-id="b8e830a8-eb0b-40a7-b595-9615282fe184">Eliminar</button>
+          </div>
+        </article>
+      </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="lessonView">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                  <p class="eyebrow">Clase rápida</p>
+                <h3>Registrar avance</h3>
+              </div>
+            </div>
+            <form class="lesson-form" id="lessonForm">
+              <label>
+                Estudiante
+                <select id="lessonStudentInput"><option value="c66cbdab-fa2b-48e8-8abe-26b31abe5724">Noelia (Novia de David)</option><option value="7e53686e-71b9-482c-91b1-891d449075b9">Natalia Arroyo</option><option value="8863f8da-d279-4bd5-89d1-5c8f58524636">Samuel SAGRADO</option><option value="b8e830a8-eb0b-40a7-b595-9615282fe184">David Elizondo</option></select>
+              </label>
+              <div class="two-columns">
+                <label>
+                  Nuevo progreso
+                  <input id="lessonProgressInput" max="100" min="0" type="number">
+                </label>
+                <label>
+                  Próxima clase
+                  <input id="lessonDateInput" type="date">
+                </label>
+              </div>
+              <label>
+                Nota de clase
+                <textarea id="lessonNoteInput" rows="5" placeholder="Tema visto, desempeño, tarea asignada"></textarea>
+              </label>
+              <button class="primary-button" type="submit">Actualizar avance</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="view" id="reportsView">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Reporte</p>
+                <h3>Vista general</h3>
+              </div>
+              <div class="panel-actions">
+                <button class="ghost-button" id="backupButton" type="button">Copia JSON</button>
+                <button class="ghost-button" id="importButton" type="button">Importar JSON</button>
+                <button class="ghost-button" id="exportButton" type="button">Exportar CSV</button>
+              </div>
+            </div>
+            <input id="importFileInput" type="file" accept="application/json,.json" hidden="">
+            <div class="report-grid" id="reportGrid"><article class="report-card"><strong>4</strong><p>Activos</p></article><article class="report-card"><strong>0</strong><p>En pausa</p></article><article class="report-card"><strong>0</strong><p>Completados</p></article><article class="report-card"><strong>3</strong><p>Nivel B</p></article><article class="report-card"><strong>0</strong><p>Avance alto</p></article><article class="report-card"><strong>2</strong><p>Necesitan refuerzo</p></article></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./Seguimiento de Estudiantes de Inglés_files/app.js.descarga"></script>
+  
+
+</body></html>
