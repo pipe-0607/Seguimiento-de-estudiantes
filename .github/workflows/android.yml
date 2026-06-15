@@ -1,0 +1,37 @@
+name: Compilar Python a APK
+
+# El proceso se activa automáticamente cada vez que subes código (push) a la rama principal
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descarga el código fuente de tu repositorio
+    - name: Descargar codigo
+      uses: actions/checkout@v4
+
+    # 2. Configura el entorno virtual con Python
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. Compila el archivo APK usando Buildozer
+    - name: Compilar APK con Buildozer
+      uses: ArtemSBulgakov/buildozer-action@v1
+      id: buildozer
+      with:
+        repository_root: .
+        buildozer_version: stable
+
+    # 4. Guarda y expone el APK resultante como un archivo descargable
+    - name: Entregar APK listo para descargar
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mi-App-Python-APK
+        path: ${{ steps.buildozer.outputs.filename }}
+
